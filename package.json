@@ -2,7 +2,7 @@
   "name": "api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+
   "scripts": {
     "start": "nodemon -L",
     "test": "mocha -w ./tests/**/*.spec.js"
@@ -26,6 +26,7 @@
     "retry-as-promised": "^7.0.4",
     "sequelize": "^6.3.5"
   },
+  "main": "index.js",
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^8.2.1",
