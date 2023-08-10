@@ -5,7 +5,7 @@ const mapApi = require('../utils/getData')
 const getDiet = async () => {
 
     let dietsDb = await Diet.findAll()
-    if (!dietsDb) {
+    if (!dietsDb.length) {
         const apiInfo = await mapApi();
         const diets = await apiInfo.map((element) => element.diets).flat();
         const allDiets = [];
