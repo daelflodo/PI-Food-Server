@@ -11,7 +11,7 @@ const getDiet = async () => {
         const allDiets = [];
 
         diets.forEach(diet => {
-            if (!allDiets.some(el => el.name === diet)) {// verificar si algún elemento en allDiets tiene el mismo nombre 
+            if (!allDiets.some(el => el.name === diet)) {// verificar si algún elemento en allDiets tiene el mismo nombre
                 allDiets.push({ name: diet });//sino encuentra ninguna dieta en el array hace un push con la dieta nueva
             }
         });

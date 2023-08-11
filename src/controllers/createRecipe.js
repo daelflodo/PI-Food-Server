@@ -1,6 +1,6 @@
 //esta funcion puede interactual con el modelo
 //va ser una funcion async pq trabaja con los metodos del models y estos metodos manejan promesas
-//los metodos de los modelos siempre dan una promesa   
+//los metodos de los modelos siempre dan una promesa
 
 const { Recipe, Diet } = require('../db')
 
@@ -28,4 +28,3 @@ const createRecipe = async (name, image, summary, healthScore, steps, diets) => 
       return{error:'Recipe name already exists'}
 }
 module.exports = createRecipe ;
-   

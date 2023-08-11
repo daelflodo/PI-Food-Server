@@ -13,7 +13,7 @@ const getRecipebyId = async (id, sourceId) => {
             image: result.image,
             summary: result.summary,
             healthScore: result.healthScore,
-            steps: result.analyzedInstructions[0]?.steps?.map((ste) => ste.step ) || [],//API 
+            steps: result.analyzedInstructions[0]?.steps?.map((ste) => ste.step ) || [],//API
             diets: result.diets,
         }
     } else {
@@ -26,40 +26,18 @@ const getRecipebyId = async (id, sourceId) => {
               }
             }})
 
-            result = await data.toJSON();//
+            result = await data.toJSON();
             recipeById = {
             id: result.id,
-            name: result.name,//DB
+            name: result.name,
             image: result.image,
             summary: result.summary,
             healthScore: result.healthScore,
-            steps: result.steps,//DB
-            diets:result.diets?.map(ele=>ele.name) 
+            steps: result.steps,
+            diets:result.diets?.map(ele=>ele.name)
         }
     }
     return recipeById
 }
-// const getRecipebyId = async (id, sourceId) => { 
-//      console.log('id de control',id);
-//      console.log('Source Id control:', sourceId);
-//     const result = sourceId === 'API'
-//         ? (await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)).data
-//         : await Recipe.findByPk(id)
-//         console.log('result control:' ,result.dataValues);
-//     const recipeById = {
-//         id: result.id,
-//         name: result.name,//DB
-//         name: result.title,//API
-//         image: result.image,
-//         summary: result.summary,
-//         healthScore: result.healthScore,
-//         steps: result.steps,//DB
-//         steps: result.analyzedInstructions[0]?.steps?.map(ste=>ste.step) || [],//API
-//         diets: result.diets,
-//         // diets: result.diets
 
-//     }
-//     // console.log(recipeById);
-//     return recipeById
-// }
 module.exports = getRecipebyId

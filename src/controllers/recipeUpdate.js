@@ -5,8 +5,6 @@ const recipeUpdate = async(id,name, image, summary, healthScore, steps, diets) =
     if(!uuidRegex.test(id)) return {error:'Enter an id in UUID format'}//valida que el id tenga formato UUID
     const recipeUpd =await Recipe.findByPk(id)
     if(!recipeUpd) return {error:'Recipe not Found'}
-    // const recipeName = await Recipe.findAll({where:{name:name}})//validar nombre
-    // if(recipeName) return {error:'El nombre ya esta en la base de datos'}//vlidar nombre
     if(name) recipeUpd.name = name;
     if(image) recipeUpd.image = image;
     if(summary)recipeUpd.summary=summary;

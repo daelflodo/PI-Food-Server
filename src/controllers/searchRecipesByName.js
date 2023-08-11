@@ -15,10 +15,8 @@ const searchRecipesByName = async (name) => {
             },
         })
         searchedRecipesDb = dbRecipes// si pasa por la base de dato se rompe la api
-        //  searchedRecipesDb=dbRecipes[0].toJSON()// si pasa por la base de dato se rompe la api
-        //  searchedRecipesDb=dbRecipes.map(recipe => recipe.toJSON())
     }
-    //busca en la Api 
+    //busca en la Api
     let includesApiRecipes=[]
     const apiRecipes = await mapApi()
     if(apiRecipes){
@@ -27,11 +25,9 @@ const searchRecipesByName = async (name) => {
         )
         includesApiRecipes=allApiRecipes
     }
-    // console.log('includesApiRecipes->',includesApiRecipes);
-    // console.log('searchedRecipesDb->', searchedRecipesDb);
     if(!includesApiRecipes[0] && !searchedRecipesDb[0]) return {error:'No hay concidencia en la busqueda'}
     console.log('llego al return');
     return [...searchedRecipesDb, ...includesApiRecipes]
-    
+
 }
 module.exports = searchRecipesByName

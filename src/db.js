@@ -4,9 +4,9 @@ const fs = require('fs');
 const path = require('path');
 const RecipesModel = require('./models/Recipe')
 const DietModel = require('./models/Diet')
-const { DB_USER, DB_PASSWORD, DB_HOST,DATA_BASE_URL } = process.env;
+const { DATA_BASE_URL } = process.env;
 
-const sequelize = new Sequelize(DATA_BASE_URL,{
+const sequelize = new Sequelize(DATA_BASE_URL, {
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 });
@@ -38,8 +38,8 @@ const { Recipe, Diet } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
-Recipe.belongsToMany(Diet, {through: 'recipe_diet'})
-Diet.belongsToMany(Recipe, {through: 'recipe_diet'})
+Recipe.belongsToMany(Diet, { through: 'recipe_diet' })
+Diet.belongsToMany(Recipe, { through: 'recipe_diet' })
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

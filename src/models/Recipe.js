@@ -10,7 +10,6 @@ module.exports = (sequelize) => {
         type: DataTypes.UUID,
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
-        // allowNull: false,
       },
       name: {
         type: DataTypes.STRING,
@@ -19,7 +18,6 @@ module.exports = (sequelize) => {
       },
       image: {
         type: DataTypes.STRING,
-        // allowNull: false
       },
       summary: {
         type: DataTypes.TEXT,
@@ -34,8 +32,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
        created: {
-        type: DataTypes.BOOLEAN,// funciona a modo de flat para saber q lo cree yo
-        // allowNull: false,
+        type: DataTypes.BOOLEAN,
         defaultValue: true,
       },
     },

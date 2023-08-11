@@ -34,8 +34,6 @@ const createRecipesHandler = async (req, res) => {
     const { name, image, summary, healthScore, steps, diets } = req.body
     //colocamos un try catch en esta pocicion y resuelve el error q podria retornar el controller
     try {
-        // if (!diets[0]) throw Error('La receta debe tener al menos un tipo de dieta')
-
         const newRecipe = await createRecipe(name, image, summary, healthScore, steps, diets)
         console.log(newRecipe.error);
         if (!diets[0]) return res.status(404).send(newRecipe.error)
@@ -58,7 +56,6 @@ const updateRecipesHandler = async (req, res) => {
     } catch (error) {
         return res.status(401).json(error)
     }
-    // res.send(`Dael: Esta ruta actualiza una receta con id: `)
 }
 const deleteRecipesHandler = async(req, res) => {
     const { id } = req.params

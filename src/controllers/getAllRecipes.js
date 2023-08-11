@@ -3,7 +3,7 @@ const mapApi = require('../utils/getData')
 
 
 const getAllRecipes = async () => {
-    // buscar en db 
+    // buscar en db
     //buscar en api
     //unificar
     // console.log("algo ");

@@ -8,9 +8,8 @@ module.exports = (sequelize) => {
         {
             id: {
                 type: DataTypes.INTEGER,
-                primaryKey: true, 
+                primaryKey: true,
                 autoIncrement: true,
-                // defaultValue: DataTypes.UUIDV4,// Es para que se genere solo el id
             },
             name: {
                 type: DataTypes.STRING,
@@ -19,7 +18,7 @@ module.exports = (sequelize) => {
             }
         },
         {
-            timestamps: false   
+            timestamps: false
         }
         );
 };
