@@ -4,9 +4,9 @@ const fs = require('fs');
 const path = require('path');
 const RecipesModel = require('./models/Recipe')
 const DietModel = require('./models/Diet')
-const { DB_USER, DB_PASSWORD, DB_HOST, } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST,DATA_BASE_URL } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/food`,{
+const sequelize = new Sequelize(DATA_BASE_URL,{
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 });
