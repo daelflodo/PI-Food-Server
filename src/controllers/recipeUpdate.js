@@ -1,26 +1,28 @@
-const  {Recipe, Diet}  = require('../db');
+const { Recipe, Diet } = require('../db');
+const { isValidUUID } = require('../utils/validators');
+const AppError = require('../utils/AppError');
 
-const recipeUpdate = async(id,name, image, summary, healthScore, steps, diets) =>{
-    const uuidRegex = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
-    if(!uuidRegex.test(id)) return {error:'Enter an id in UUID format'}//valida que el id tenga formato UUID
-    const recipeUpd =await Recipe.findByPk(id)
-    if(!recipeUpd) return {error:'Recipe not Found'}
-    if(name) recipeUpd.name = name;
-    if(image) recipeUpd.image = image;
-    if(summary)recipeUpd.summary=summary;
-    if(healthScore)recipeUpd.healthScore=healthScore; 
-    if(steps)recipeUpd.steps=steps;
-    if(diets){
-        for (let i = 0; i < diets.length; i++) {
-            const dietdb = await Diet.findOne({
-                where: {
-                    name: diets[i]
-                }
-            })
-            recipeUpd.addDiet(dietdb)
-        }
-    }
-    await recipeUpd.save();
-    return {msg:'Successfully modified recipe'};
-}
-module.exports = recipeUpdate
+const recipeUpdate = async (id, name, image, summary, healthScore, steps, diets) => {
+  if (!isValidUUID(id)) throw new AppError('ID must be a valid UUID', 400);
+
+  const recipe = await Recipe.findByPk(id);
+  if (!recipe) throw new AppError('Recipe not found', 404);
+
+  if (name) recipe.name = name;
+  if (image) recipe.image = image;
+  if (summary) recipe.summary = summary;
+  if (healthScore) recipe.healthScore = healthScore;
+  if (steps) recipe.steps = steps;
+
+  if (diets && diets.length) {
+    const dietRecords = await Promise.all(
+      diets.map((diet) => Diet.findOne({ where: { name: diet } }))
+    );
+    await recipe.addDiets(dietRecords.filter(Boolean));
+  }
+
+  await recipe.save();
+  return 'Recipe updated successfully';
+};
+
+module.exports = recipeUpdate;

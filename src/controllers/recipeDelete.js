@@ -1,13 +1,15 @@
-const { Recipe } = require('../db')
-const recipeDelete = async(id)=>{
+const { Recipe } = require('../db');
+const { isValidUUID } = require('../utils/validators');
+const AppError = require('../utils/AppError');
 
-    console.log('id->', id);
-    const uuidRegex = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
-    if(!uuidRegex.test(id)) return {error:'Enter an id in UUID format'}//valida que el id tenga formato UUID
-    const recipe = await Recipe.findByPk(id)
-    if(!recipe) return {error:'Recipe Not Found'}
-    await recipe.destroy()
-    return {msg:'Deleted recipe'}
+const recipeDelete = async (id) => {
+  if (!isValidUUID(id)) throw new AppError('ID must be a valid UUID', 400);
 
-}
-module.exports = recipeDelete
+  const recipe = await Recipe.findByPk(id);
+  if (!recipe) throw new AppError('Recipe not found', 404);
+
+  await recipe.destroy();
+  return 'Recipe deleted successfully';
+};
+
+module.exports = recipeDelete;
