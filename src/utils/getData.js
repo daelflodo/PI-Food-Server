@@ -13,7 +13,7 @@ const mapApi = async () => {
             image: element.image,
             summary: element.summary,
             healthScore: element.healthScore,
-            steps: element.analyzedInstructions[0]?.steps?.map(ste => ste.step) || [],
+            steps: element.analyzedInstructions?.[0]?.steps?.map(ste => ste.step) || [],
             // Steps: recipe.analyzedInstructions[0]?.steps.map((paso) => {
                 //     return `<b>${paso.number}</b>   ${paso.step}  `;
                 //   }),

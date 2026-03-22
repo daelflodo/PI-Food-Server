@@ -25,6 +25,10 @@ server.use((req, res, next) => {
   next();
 });
 
+//crear unara ruta en / para probar que el servidor funciona
+server.get('/', (req, res) => {
+  res.send('Servidor funcionando');
+});
 server.use(routes);
 
 // Error catching endware.
