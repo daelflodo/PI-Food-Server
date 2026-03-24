@@ -1,0 +1,149 @@
+{
+  "info": {
+    "name": "PI-Food API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Colección completa de endpoints para la API PI-Food"
+  },
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": "http://localhost:3001",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Recipes",
+      "item": [
+        {
+          "name": "GET All Recipes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{BASE_URL}}/recipes",
+              "host": ["{{BASE_URL}}"],
+              "path": ["recipes"]
+            },
+            "description": "Retorna todas las recetas (DB + API externa Spoonacular)."
+          }
+        },
+        {
+          "name": "GET Recipes by Name",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{BASE_URL}}/recipes?name=pasta",
+              "host": ["{{BASE_URL}}"],
+              "path": ["recipes"],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "pasta",
+                  "description": "Nombre o parte del nombre a buscar (case-insensitive)"
+                }
+              ]
+            },
+            "description": "Busca recetas por nombre tanto en la DB como en Spoonacular."
+          }
+        },
+        {
+          "name": "GET Recipe by ID (DB - UUID)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{BASE_URL}}/recipes/{{recipe_uuid}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["recipes", "{{recipe_uuid}}"]
+            },
+            "description": "Busca una receta por UUID (creada en la DB). Reemplaza {{recipe_uuid}} con un UUID real, ej: a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+          }
+        },
+        {
+          "name": "GET Recipe by ID (Spoonacular - número)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{BASE_URL}}/recipes/716429",
+              "host": ["{{BASE_URL}}"],
+              "path": ["recipes", "716429"]
+            },
+            "description": "Busca una receta por ID numérico en la API externa de Spoonacular."
+          }
+        },
+        {
+          "name": "POST Create Recipe",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{BASE_URL}}/recipes",
+              "host": ["{{BASE_URL}}"],
+              "path": ["recipes"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Pasta Carbonara\",\n  \"image\": \"https://example.com/pasta.jpg\",\n  \"summary\": \"Deliciosa pasta italiana con huevo, queso y panceta.\",\n  \"healthScore\": 65,\n  \"steps\": [\"Hervir la pasta\", \"Mezclar huevo y queso\", \"Agregar panceta frita\", \"Combinar todo\"],\n  \"diets\": [\"gluten free\"]\n}"
+            },
+            "description": "Crea una nueva receta en la DB. 'name' y 'diets' son obligatorios."
+          }
+        },
+        {
+          "name": "PUT Update Recipe",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{BASE_URL}}/recipes",
+              "host": ["{{BASE_URL}}"],
+              "path": ["recipes"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{recipe_uuid}}\",\n  \"name\": \"Pasta Carbonara Actualizada\",\n  \"image\": \"https://example.com/pasta-updated.jpg\",\n  \"summary\": \"Versión mejorada de la carbonara.\",\n  \"healthScore\": 70,\n  \"steps\": [\"Hervir la pasta al dente\", \"Mezclar huevo y queso parmesano\", \"Agregar guanciale frito\", \"Combinar rápidamente\"],\n  \"diets\": [\"dairy free\"]\n}"
+            },
+            "description": "Actualiza una receta existente. 'id' (UUID) es obligatorio. Reemplaza {{recipe_uuid}} con el UUID de la receta a modificar."
+          }
+        },
+        {
+          "name": "DELETE Recipe",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{BASE_URL}}/recipes/{{recipe_uuid}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["recipes", "{{recipe_uuid}}"]
+            },
+            "description": "Elimina una receta por UUID. Reemplaza {{recipe_uuid}} con el UUID de la receta a eliminar."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Diets",
+      "item": [
+        {
+          "name": "GET All Diets",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{BASE_URL}}/diet",
+              "host": ["{{BASE_URL}}"],
+              "path": ["diet"]
+            },
+            "description": "Retorna todas las dietas disponibles. Si la DB está vacía, las obtiene de Spoonacular y las persiste."
+          }
+        }
+      ]
+    }
+  ]
+}
